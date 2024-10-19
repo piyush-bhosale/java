@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/your-username/my-java-app.git', branch: 'main'
+                git url: 'https://github.com/piyush-bhosale/java.git', branch: 'main'
             }
         }
 
