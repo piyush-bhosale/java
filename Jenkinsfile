@@ -9,6 +9,7 @@ pipeline {
     environment {
        SONAR_HOST_URL = 'http://34.230.51.176:9000'
        SONAR_TOKEN = credentials('SonarQube-token')
+       IMAGE_NAME = "my-java-app:latest"
        
    }
 
@@ -50,9 +51,9 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Building docker file') {
             steps {
-                echo 'Deploying the application...'
+                sh 'docker build -t $IMAGE_NAME .'
                 // Placeholder for real deployment logic (e.g., copying to a server)
             }
         }
