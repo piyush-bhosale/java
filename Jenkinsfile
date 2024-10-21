@@ -3,7 +3,14 @@ pipeline {
 
     tools {
         maven 'Maven'  // Make sure Maven is installed on Jenkins
+        jdk 'JDK'
     }
+    
+    environment {
+       SONAR_HOST_URL = 'http://34.230.51.176:9000'
+       SONAR_TOKEN = credentials('SonarQube-token')
+       
+   }
 
     stages {
         stage('Clone Repository') {
@@ -23,6 +30,19 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+               withSonarQubeEnv('SonarQube') {
+                   sh '''
+                       mvn sonar:sonar \
+                         -Dsonar.projectKey=my-java-app \
+                         -Dsonar.host.url=$SONAR_HOST_URL \
+                         -Dsonar.login=$SONAR_TOKEN
+                   '''
+               }
+           }
+       }
 
         stage('Package') {
             steps {
