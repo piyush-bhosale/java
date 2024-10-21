@@ -54,6 +54,7 @@ pipeline {
         stage('Building docker file') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker ps'
                 // Placeholder for real deployment logic (e.g., copying to a server)
             }
         }
