@@ -55,9 +55,18 @@ pipeline {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
                 sh 'docker ps'
-                // Placeholder for real deployment logic (e.g., copying to a server)
+              
             }
         }
+
+        stage('Scan Docker Image with Trivy') {
+           steps {
+               script {
+                   // Run the Trivy scan on the built image
+                   sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${IMAGE_NAME}"
+               }
+           }
+       }
     }
 
     post {
