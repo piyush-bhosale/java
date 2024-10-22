@@ -12,30 +12,14 @@ pipeline {
        IMAGE_NAME = "my-java-app:latest"
        
    }
-        
+
+    stages {
         stage('Clone Repository') {
             steps {
                 git url: 'https://github.com/piyush-bhosale/java.git', branch: 'main'
             }
         }
 
-        stages {
-        stage('Install Docker') {
-           steps {
-               script {
-                   // Install Docker if it's not available inside the Jenkins container
-                   sh '''
-                   if ! [ -x "$(command -v docker)" ]; then
-                       echo "Docker not found. Installing Docker..."
-                       apt-get update
-                       apt-get install -y docker.io
-                   else
-                       echo "Docker already installed."
-                   fi
-                   '''
-               }
-           }
-       }
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
@@ -83,4 +67,3 @@ pipeline {
         }
     }
 }
-
