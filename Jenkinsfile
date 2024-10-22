@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-       SONAR_HOST_URL = 'http://34.230.51.176:9000'
+       SONAR_HOST_URL = 'http://34.203.195.30:9000'
        SONAR_TOKEN = credentials('SonarQube-token')
        DOCKERHUB_CREDENTIALS = 'piyushbhosale9226'
        DOCKERHUB_USERNAME = 'piyushbhosale9226'
