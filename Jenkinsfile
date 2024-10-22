@@ -78,7 +78,7 @@ pipeline {
                                                      usernameVariable: 'DOCKER_USER',
                                                      passwordVariable: 'DOCKER_PASS')]) {
                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                   }
+                      }
                }
            }
        }
@@ -87,9 +87,10 @@ pipeline {
                script {
                    // Push the Docker image to DockerHub
                    sh "docker push ${IMAGE_NAME}"
+                  }
+              }
 
-
-    }
+       }
 
     post {
         always {
