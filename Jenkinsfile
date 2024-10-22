@@ -9,7 +9,8 @@ pipeline {
     environment {
        SONAR_HOST_URL = 'http://34.230.51.176:9000'
        SONAR_TOKEN = credentials('SonarQube-token')
-       IMAGE_NAME = "my-java-app:latest"
+       DOCKERHUB_USERNAME = 'piyushbhosale9226'
+       IMAGE_NAME = "${DOCKERHUB_USERNAME}/my-java-app:latest"
        
    }
 
@@ -67,6 +68,26 @@ pipeline {
                }
            }
        }
+       
+       stage('Login to DockerHub') {
+           steps {
+               script {
+                   // Login to DockerHub using credentials stored in Jenkins
+                   withCredentials([usernamePassword(credentialsId: 'piyushbhosale9226',
+                                                     usernameVariable: 'DOCKER_USER',
+                                                     passwordVariable: 'DOCKER_PASS')]) {
+                       sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                   }
+               }
+           }
+       }
+       stage('Push Docker Image to DockerHub') {
+           steps {
+               script {
+                   // Push the Docker image to DockerHub
+                   sh "docker push ${IMAGE_NAME}"
+
+
     }
 
     post {
