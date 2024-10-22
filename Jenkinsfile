@@ -12,8 +12,14 @@ pipeline {
        IMAGE_NAME = "my-java-app:latest"
        
    }
+        
+        stage('Clone Repository') {
+            steps {
+                git url: 'https://github.com/piyush-bhosale/java.git', branch: 'main'
+            }
+        }
 
-    stages {
+        stages {
         stage('Install Docker') {
            steps {
                script {
@@ -30,13 +36,6 @@ pipeline {
                }
            }
        }
-        
-        stage('Clone Repository') {
-            steps {
-                git url: 'https://github.com/piyush-bhosale/java.git', branch: 'main'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
