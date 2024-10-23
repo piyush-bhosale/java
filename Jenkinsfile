@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-       SONAR_HOST_URL = 'http://34.203.195.30:9000'
+       SONAR_HOST_URL = 'http://54.84.108.20:9000'
        SONAR_TOKEN = credentials('SonarQube-token')
        DOCKERHUB_CREDENTIALS = 'piyushbhosale9226'
        DOCKERHUB_USERNAME = 'piyushbhosale9226'
@@ -57,20 +57,20 @@ pipeline {
         }
 
         stage('Upload to JFrog Artifactory') {
-           steps {
-               script {
-                   def server = Artifactory.server(ARTIFACTORY_SERVER)
-                   def uploadSpec = """{
+            steps {
+                script {
+                    def server = Artifactory.server(ARTIFACTORY_SERVER)
+                    def uploadSpec = """{
                        "files": [
                            {
                                "pattern": "${JAR_FILE}",
                                "target": "${REPO_NAME}/my-java-app/"
                            }
                        ]
-                   }"""
-                   server.upload(uploadSpec)
-               }
-           }
+                    }"""
+                    server.upload(uploadSpec)
+                }
+            }
         }
 
         stage('Building docker file') {
@@ -86,32 +86,32 @@ pipeline {
                script {
                    // Run the Trivy scan on the built image
                    sh "trivy image ${IMAGE_NAME}"
-               }
-           }
-       }
+                }
+            }
+        }
        
-       stage('Login to DockerHub') {
-           steps {
-               script {
+        stage('Login to DockerHub') {
+            steps {
+                script {
                    // Login to DockerHub using credentials stored in Jenkins
-                   withCredentials([usernamePassword(credentialsId: 'piyushbhosale9226',
+                    withCredentials([usernamePassword(credentialsId: 'piyushbhosale9226',
                                                      usernameVariable: 'DOCKER_USER',
                                                      passwordVariable: 'DOCKER_PASS')]) {
                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
                       }
                }
-           }
-       }
-       stage('Push Docker Image to DockerHub') {
-           steps {
+            }
+        }
+        stage('Push Docker Image to DockerHub') {
+            steps {
                script {
                    // Push the Docker image to DockerHub
                    sh "docker push ${IMAGE_NAME}"
                   }
               }
 
-         }
-     }
+            }
+        }
 
     post {
         always {
