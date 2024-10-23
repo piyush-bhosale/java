@@ -14,7 +14,7 @@ pipeline {
        IMAGE_NAME = "${DOCKERHUB_USERNAME}/my-java-app:latest"
        ARTIFACTORY_SERVER = 'Jfrog-server'   // Artifactory server ID
        REPO_NAME = 'art-my-repo'              // Repository name
-       JAR_FILE = 'target/my-java-app.jar'   // Artifact path
+       JAR_FILE = 'target/my-java-app-1.0-SNAPSHOT.jar'   // Artifact path
        CREDENTIALS_ID = 'Jfrog-server'  
    }
 
