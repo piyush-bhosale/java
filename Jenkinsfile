@@ -64,7 +64,7 @@ pipeline {
                        "files": [
                            {
                                "pattern": "${JAR_FILE}",
-                               "target": "${art-my-repo}/my-java-app/"
+                               "target": "${REPO_NAME}/my-java-app/"
                            }
                        ]
                    }"""
