@@ -48,7 +48,7 @@ pipeline {
                    '''
                }
            }
-       }
+        }
 
         stage('Package') {
             steps {
@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-         stage('Upload to JFrog Artifactory') {
+        stage('Upload to JFrog Artifactory') {
            steps {
                script {
                    def server = Artifactory.server(ARTIFACTORY_SERVER)
@@ -71,7 +71,7 @@ pipeline {
                    server.upload(uploadSpec)
                }
            }
-         }
+        }
 
         stage('Building docker file') {
             steps {
