@@ -49,9 +49,25 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
             }
         }
+
+         stage('Upload to JFrog Artifactory') {
+           steps {
+               script {
+                   def server = Artifactory.server(ARTIFACTORY_SERVER)
+                   def uploadSpec = """{
+                       "files": [
+                           {
+                               "pattern": "${JAR_FILE}",
+                               "target": "${art-my-repo}/my-java-app/"
+                           }
+                       ]
+                   }"""
+                   server.upload(uploadSpec)
+               }
+           }
 
         stage('Building docker file') {
             steps {
