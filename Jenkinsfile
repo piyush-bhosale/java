@@ -4,18 +4,18 @@ pipeline {
     tools {
         maven 'Maven'  // Make sure Maven is installed on Jenkins
         jdk 'JDK'
-        jfrog 'jfrog-cli'
+		jfrog 'jfrog-cli-latest'
     }
     
     environment {
-       SONAR_HOST_URL = 'http://54.84.108.20:9000'
+       SONAR_HOST_URL = 'http://34.203.195.30:9000'
        SONAR_TOKEN = credentials('SonarQube-token')
        DOCKERHUB_CREDENTIALS = 'piyushbhosale9226'
        DOCKERHUB_USERNAME = 'piyushbhosale9226'
        IMAGE_NAME = "${DOCKERHUB_USERNAME}/my-java-app:latest"
        ARTIFACTORY_SERVER = 'Jfrog-server'   // Artifactory server ID
        REPO_NAME = 'art-my-repo'              // Repository name
-       JAR_FILE = 'target/my-java-app-1.0-SNAPSHOT.jar'   // Artifact path
+       JAR_FILE = 'target/my-java-app.jar'   // Artifact path
        CREDENTIALS_ID = 'Jfrog-server'  
    }
 
