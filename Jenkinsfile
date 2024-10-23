@@ -4,6 +4,7 @@ pipeline {
     tools {
         maven 'Maven'  // Make sure Maven is installed on Jenkins
         jdk 'JDK'
+        jfrog 'jfrog-cli'
     }
     
     environment {
